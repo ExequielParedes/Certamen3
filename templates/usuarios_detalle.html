@@ -1,0 +1,11 @@
+		<table class="table table-hover">
+			<tr><td> ID </td><td> Usuario </td><td> Password </td></tr>
+			{% for usuarios in usuario%}
+				<tr>
+					<td> {{usuario["id"]}} </td>
+					<td> {{usuario["nombre"]}} </td>
+					<td> {{usuario["username"]}} </td>
+					<td> {{usuario["pass"]}} </td>
+				</tr>
+			{% endfor%}
+		</table>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<title>Usuarios</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div class="container">
+		<h2>Alumno</h2>
+		<table>
+			<tr>
+				<div class="form-group">
+					<label for="usr">Rut:</label>
+					<input type="text" class="form-control" id="rut" required>
+				</div>
+				<div class="form-group">
+					<label for="usr">Nombre:</label>
+					<input type="text" class="form-control" id="nombre" required>
+				</div>
+				<div class="form-group">
+					<label for="usr">Carrera:</label>
+					<input type="text" class="form-control" id="carrera" required>
+				</div>
+				<div class="form-group">
+					<label for="usr">usuario:</label>
+					<input type="text" class="form-control" id="usuario" required>
+				</div>
+				<div class="form-group">
+					<label for="usr">Contraseña:</label>
+					<input type="text" class="form-control" id="pass" required>
+				</div>
+			</tr>
+		</table>
+		<br>
+		<div class="btn-group">
+			<input type="button" class="btn btn-outline-primary" id="agregar" value="Agregar">
+			<input type="button" class="btn btn-outline-primary" id="modificar" value="Modificar">
+			<input type="button" class="btn btn-outline-primary" id="eliminar" value="Eliminar">
+		</div>
+		<br><br>
+			<div id="dvdetalle">
+				<table class="table table-hover">
+					<tr>
+						<td> RUT </td>
+						<td> NOMBRE </td>
+						<td> CARRERA </td>
+						<td> USUARIO </td>
+						<td> PASSWORD </td>
+					</tr>
+					{% for usuarios in alumno%}
+					<tr>
+						<td> {{alumno["rut"]}} </td>
+						<td> {{alumno["nombre"]}} </td>
+						<td> {{alumno["carrera"]}} </td>
+						<td> {{alumno["usuario"]}} </td>
+						<td> {{alumno["password"]}} </td>
+					</tr>
+					{% endfor%}
+				</table>
+			</div>	
+	</div>
+</body>	
+</html>
+
+<script>
+$("#agregar").click(function(){
+    $.post( "/actusuario1",
+                { 	rut: $("#rut").val(),
+                	nombre: $("#nombre").val(),
+                	carrera: $("#carrera").val(),
+                	usuario: $("#usuario").val(),
+                	password: $("#pass").val(),
+                	operacion: "grabar"
+                },
+        function(data,status){
+          if (status=="success"){ 
+            $("#dvdetalle").html(data);
+          } else { 
+            mensaje("problema al actualizar el registro!");
+          }   
+        });
+  });
+
+$("#modificar").click(function(){
+	$.post(	"/actusuario1", 
+			{	rut: $("#rut").val(),
+                	nombre: $("#nombre").val(),
+                	carrera: $("#carrera").val(),
+                	usuario: $("#usuario").val(),
+                	password: $("#pass").val(),
+                operacion: "modificar"
+			},
+			function(data,status){
+	          if (status=="success"){ 
+	            $("#dvdetalle").html(data);
+	          } else { 
+	            mensaje("problema al actualizar el registro!");
+	          }   
+	        });
+});
+
+$("#eliminar").click(function(){
+	$.post(	"/actusuario1", 
+			{	rut: $("#rut").val(),
+                operacion: "eliminar"
+			},
+			function(data,status){
+	          if (status=="success"){ 
+	            $("#dvdetalle").html(data);
+	          } else { 
+	            mensaje("problema al eliminar el registro!");
+	          }   
+	        });
+});
+</script>
