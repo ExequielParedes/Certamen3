@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Alumnos</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<style type="text/css">
+		td,th{
+			text-align: center;
+		}
+		#texto_total{
+			text-align: right;
+			font-weight: bold;
+		}
+		.item{
+			text-align: left;
+		}
+	</style>
+
+</head>
+<body>
+		<div class="container">
+			<h2>Alumnos</h2>
+			<table>
+				<tr>
+					<td>Id</td>
+					<td><select id="usuario">
+						{%for usuario in usuarios_2%}
+							<option value='{{usuario["id"]}}'>{{usuario["id"]}}</option>
+						{%endfor%}
+					</select></td>
+				</tr>
+				<tr>
+					<td>rut:</td>
+					<td><input type="text" id="rut"></td>
+				</tr>
+				<tr>
+					<td>carrera:</td>
+					<td><input type="text" id="carrera"></td>
+				</tr>
+			</table>
+		</div>
+</body>
+
+</html>

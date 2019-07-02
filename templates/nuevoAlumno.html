@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Alumnos</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<style type="text/css">
+		td,th{
+			text-align: center;
+		}
+		#texto_total{
+			text-align: right;
+			font-weight: bold;
+		}
+		.item{
+			text-align: left;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<form id="frmajax" method="POST">
+		<label>Rut:</label>
+		<p></p>
+		<input type="text" name="rut" id="rut">
+		<p></p>
+		<label>Nombre:</label>
+		<p></p>
+		<input type="text" name="nombre" id="nombre">
+		<p></p>
+		<label>Usuario:</label>
+		<p></p>
+		<input type="text" name="usuario" id="usuario">
+		<p></p>
+		<label>password:</label>
+		<p></p>
+		<input type="text" name="password" id="password">
+		<p></p>
+		<label>carrera:</label>
+		<p></p>
+		<input type="text" name="carrera" id="carrera">
+		<p></p>
+		<br><br><br>
+		<input type="button" id="agregar" value="Agregar">
+		<input type="button" id="modificar" value="Modificar">
+		<input type="button" id="eliminar" value="Eliminar">
+		<br><br><br>
+	</form>
+	
+		<div class="AlumnoDetalle">
+		 <table>
+	<tr><td>Rut:</td><td>Nombre:</td><td>Usuario:</td><td>password:</td><td>carrera</td></tr>
+
+		{% for alumno in alumnos%}
+			<tr>
+				<td> {{alumno["rut:"]}}</td>
+				<td> {{alumno["nombre:"]}}</td>
+				<td> {{usuario["username"]}}</td>
+				<td> {{usuario["pass"]}}</td>
+				<td> {{alumno["carrera"]}}</td>
+			</tr>
+		{%endfor%}
+		 </table>
+		</div>
+	</div>
+	
+
+</body>
+</html>
+
+
+<script>
+	$("#agregar").click(function(){
+		$.post("/actalumno",
+			{		
+				rut: $("#rut").val(),
+				nombre: $("#nombre").val(),
+				username: $("#username").val(),
+				pass: $("#pass").val(),
+				carrera: $("#carrera").val(),
+				operacion: "grabar"
+
+			},
+			function(data,status){
+				if (status="success"){
+					$("#AlumnoDetalle").html(data);
+				}else{
+					mensaje("Problema al agregar al registro");
+				}
+			});
+		});
+
+	$("#modificar").click(function(){
+		$.post("/actalumno",
+		{
+				rut: $("#rut").val(),
+				nombre: $("#nombre").val(),
+				username: $("#username").val(),
+				pass: $("#pass").val(),
+				carrera: $("#carrera").val(),
+				operacion: "modificar"
+		},
+		function(data,status){
+			if(status =="success"){
+				$("#AlumnoDetalle").html(data);
+			}else{
+				mensaje("problema al actualizar el registro");
+			}
+		});
+
+	});
+
+	$("#eliminar").click(function(){
+
+	}
+
+				
+</script>
